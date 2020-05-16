@@ -1,6 +1,6 @@
 # bootcamp
 
-Welcome to bootcamp for Datamatch's Web team! This is a 6 week bootcamp to expose you to the frameworks and tools used to build Datamatch itself. It will introduce you to many concepts used in industry and ways to think about system and security design. (Everyone who finishes this bootcamp will be considered for the Datamatch Web Lead role!)
+Welcome to bootcamp for Datamatch's Web team! This is a 6 week bootcamp, starting June 1st, to expose you to the frameworks and tools used to build Datamatch itself. It will introduce you to many concepts used in industry and ways to think about system and security design. (Everyone who finishes this bootcamp will be considered for the Datamatch Web Lead role!)
 
 Every week, I will post a video going over some concepts and doing some programming live. Then, there will be some tasks to finish, usually a new feature to implement and exercise your understanding of the material. You'll then submit what you have to me at the end of each week for me to review (mostly for completion). Each week's material will build upon each other (instead of mini disjoint projects).
 
