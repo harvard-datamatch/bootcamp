@@ -4,6 +4,8 @@ Welcome to bootcamp for Datamatch's Web team! This is a 6 week bootcamp to expos
 
 Every week, I will post a video going over some concepts and doing some programming live. Then, there will be some tasks to finish, usually a new feature to implement and exercise your understanding of the material. You'll then submit what you have to me at the end of each week for me to review (mostly for completion). Each week's material will build upon each other (instead of mini disjoint projects).
 
+Even though the bootcamp officially begins the week of **6/1**, much of the material is self-paced and can be done whenever comfortable.
+
 ## What do I get out of this?
 At Harvard, there aren't exactly many opportunities to get your hands on practical programming used in the real world/industry. Hopefully, this bootcamp will give you a sense of what creating a user-focused project is like and all the tools to do so! Moreover, with the completion of this bootcamp, you will have the opportunity to join Datamatch's Web team to work on Datamatch itself and Meet 24, a mini Datamatch for incoming first-years.
 
