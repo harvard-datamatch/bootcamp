@@ -25,6 +25,12 @@ class App extends React.Component {
     this.setState({ cards });
   };
 
+  editCard = (index, side, newText) => {
+    const cards = this.state.cards.slice();
+    cards[index][side] = newText;
+    this.setState({ cards });
+  };
+
   switchMode = () => this.setState({ editor: !this.state.editor });
 
   render() {
@@ -34,6 +40,7 @@ class App extends React.Component {
           addCard={this.addCard}
           cards={this.state.cards}
           deleteCard={this.deleteCard}
+          editCard={this.editCard}
           switchMode={this.switchMode}
         />
       );

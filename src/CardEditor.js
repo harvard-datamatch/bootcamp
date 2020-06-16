@@ -22,12 +22,27 @@ class CardEditor extends React.Component {
   handleChange = event =>
     this.setState({ [event.target.name]: event.target.value });
 
+  handleEditChange = (index, side, event) => {
+    this.props.editCard(index, side, event.target.value);
+  };
+
   render() {
     const cards = this.props.cards.map((card, index) => {
       return (
         <tr key={index}>
-          <td>{card.front}</td>
-          <td>{card.back}</td>
+          <td>{index + 1}</td>
+          <td>
+            <input
+              onChange={event => this.handleEditChange(index, 'front', event)}
+              value={card.front}
+            />
+          </td>
+          <td>
+            <input
+              onChange={event => this.handleEditChange(index, 'back', event)}
+              value={card.back}
+            />
+          </td>
           <td>
             <button
               disabled={this.props.cards.length === 1}
@@ -46,6 +61,7 @@ class CardEditor extends React.Component {
         <table>
           <thead>
             <tr>
+              <th></th>
               <th>Front</th>
               <th>Back</th>
               <th>Delete</th>
