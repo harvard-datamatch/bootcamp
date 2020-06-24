@@ -1,7 +1,10 @@
 import React from 'react';
 import './CardViewer.css';
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 class CardViewer extends React.Component {
   constructor(props) {
@@ -33,6 +36,14 @@ class CardViewer extends React.Component {
   flipCard = () => this.setState({ displayFront: !this.state.displayFront });
 
   render() {
+    if (!isLoaded(this.props.cards)) {
+      return <div>Loading...</div>;
+    }
+
+    if (isEmpty(this.props.cards)) {
+      return <div>Page not found!</div>;
+    }
+
     // this uses the ternary operator:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
     const card = this.props.cards[this.state.currentIndex][
@@ -41,7 +52,7 @@ class CardViewer extends React.Component {
 
     return (
       <div>
-        <h2>Card Viewer</h2>
+        <h2>{this.props.name}</h2>
         Card {this.state.currentIndex + 1} out of {this.props.cards.length}.
         <div className="card" onClick={this.flipCard}>
           {card}
@@ -60,10 +71,24 @@ class CardViewer extends React.Component {
           Next card
         </button>
         <hr />
-        <Link to="/editor">Go to card editor</Link>
+        <Link to="/">Home</Link>
       </div>
     );
   }
 }
 
-export default CardViewer;
+const mapStateToProps = (state, props) => {
+  const deck = state.firebase.data[props.match.params.deckId];
+  const name = deck && deck.name;
+  const cards = deck && deck.cards;
+  return { cards: cards, name: name };
+};
+
+export default compose(
+  withRouter,
+  firebaseConnect(props => {
+    const deckId = props.match.params.deckId;
+    return [{ path: `/flashcards/${deckId}`, storeAs: deckId }];
+  }),
+  connect(mapStateToProps),
+)(CardViewer);

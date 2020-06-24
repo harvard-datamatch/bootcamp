@@ -2,7 +2,6 @@ import React from 'react';
 import CardEditor from './CardEditor';
 import CardViewer from './CardViewer';
 import Homepage from './Homepage';
-import Test from './Test';
 
 import { Switch, Route } from 'react-router-dom';
 
@@ -41,11 +40,8 @@ class App extends React.Component {
             deleteCard={this.deleteCard}
           />
         </Route>
-        <Route exact path="/viewer">
+        <Route exact path="/viewer/:deckId">
           <CardViewer cards={this.state.cards} />
-        </Route>
-        <Route path="/test/:id">
-          <Test />
         </Route>
       </Switch>
     );
