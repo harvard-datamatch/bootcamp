@@ -1,8 +1,15 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const Test = props => {
-  return <div>Test {props.match.params.id} </div>;
+  return <div>Test</div>;
 };
 
-export default withRouter(Test);
+const mapStateToProps = state => {
+  console.log(state);
+  const isEmpty = state.firebase.profile.isEmpty;
+  return { test: '1234', hello: 'world', isEmpty: isEmpty };
+};
+
+export default connect(mapStateToProps)(Test);
