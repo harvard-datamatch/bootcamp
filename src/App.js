@@ -45,7 +45,7 @@ class App extends React.Component {
           <CardViewer cards={this.state.cards} />
         </Route>
         <Route path="/test/:id">
-          <Test test="asdf" />
+          <Test />
         </Route>
       </Switch>
     );
