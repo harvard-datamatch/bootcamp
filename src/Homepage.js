@@ -23,12 +23,29 @@ const Homepage = props => {
       <Link to="/editor">Create a new flashcards deck!</Link>
       <h3>Flashcards</h3>
       {decks}
+      <h3>Account</h3>
+      {props.isLoggedIn ? (
+        <div>
+          <div>{props.email}</div>
+          <button onClick={() => props.firebase.logout()}>Logout</button>
+        </div>
+      ) : (
+        <div>
+          <Link to="/register">Register</Link>
+          <br />
+          <Link to="/login">Login</Link>
+        </div>
+      )}
     </div>
   );
 };
 
 const mapStateToProps = state => {
-  return { homepage: state.firebase.data.homepage };
+  return {
+    homepage: state.firebase.data.homepage,
+    email: state.firebase.auth.email,
+    isLoggedIn: state.firebase.auth.uid,
+  };
 };
 
 export default compose(

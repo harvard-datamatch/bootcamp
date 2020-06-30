@@ -1,9 +1,10 @@
 import React from 'react';
 import './CardEditor.css';
 
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
 
 class CardEditor extends React.Component {
   constructor(props) {
@@ -50,6 +51,10 @@ class CardEditor extends React.Component {
   };
 
   render() {
+    if (!this.props.isLoggedIn) {
+      return <Redirect to="/register" />;
+    }
+
     const cards = this.state.cards.map((card, index) => {
       return (
         <tr key={index}>
@@ -115,4 +120,12 @@ class CardEditor extends React.Component {
   }
 }
 
-export default compose(firebaseConnect(), withRouter)(CardEditor);
+const mapStateToProps = state => {
+  return { isLoggedIn: state.firebase.auth.uid };
+};
+
+export default compose(
+  firebaseConnect(),
+  connect(mapStateToProps),
+  withRouter,
+)(CardEditor);

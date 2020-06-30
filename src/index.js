@@ -37,6 +37,7 @@ const store = createStore(rootReducer, composeWithDevTools());
 
 // react-redux-firebase config
 const rrfConfig = {
+  preserveOnLogout: ['homepage'],
   userProfile: 'users',
 };
 

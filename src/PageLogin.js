@@ -4,32 +4,26 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Redirect, Link } from 'react-router-dom';
 
-class PageRegister extends React.Component {
+class PageLogin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      username: '',
     };
   }
 
   handleChange = event =>
     this.setState({ [event.target.name]: event.target.value, error: '' });
 
-  register = async () => {
+  login = async () => {
     const credentials = {
       email: this.state.email,
       password: this.state.password,
     };
 
-    const profile = {
-      email: this.state.email,
-      username: this.state.username,
-    };
-
     try {
-      await this.props.firebase.createUser(credentials, profile);
+      await this.props.firebase.login(credentials);
     } catch (error) {
       this.setState({ error: error.message });
     }
@@ -42,7 +36,7 @@ class PageRegister extends React.Component {
 
     return (
       <div>
-        <h2>Register</h2>
+        <h2>Login</h2>
         <div>
           <div>{this.state.error}</div>
           <input
@@ -59,22 +53,13 @@ class PageRegister extends React.Component {
             type="password"
             value={this.state.password}
           />
-          <br />
-          <input
-            name="username"
-            onChange={this.handleChange}
-            placeholder="Username"
-            value={this.state.username}
-          />
         </div>
         <br />
-        <button disabled={!this.state.username.trim()} onClick={this.register}>
-          Register!
-        </button>
+        <button onClick={this.login}>Login!</button>
         <hr />
         <Link to="/">Home</Link>
         <br />
-        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
       </div>
     );
   }
@@ -84,7 +69,4 @@ const mapStateToProps = state => {
   return { isLoggedIn: state.firebase.auth.uid };
 };
 
-export default compose(
-  firebaseConnect(),
-  connect(mapStateToProps),
-)(PageRegister);
+export default compose(firebaseConnect(), connect(mapStateToProps))(PageLogin);
