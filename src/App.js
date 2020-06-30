@@ -5,8 +5,14 @@ import Homepage from './Homepage';
 import PageRegister from './PageRegister';
 
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { isLoaded } from 'react-redux-firebase';
 
-const App = () => {
+const App = props => {
+  if (!isLoaded(props.auth, props.profile)) {
+    return <div>Authentication loading...</div>;
+  }
+
   return (
     <Switch>
       <Route exact path="/">
@@ -28,4 +34,8 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = state => {
+  return { auth: state.firebase.auth, profile: state.firebase.profile };
+};
+
+export default connect(mapStateToProps)(App);
