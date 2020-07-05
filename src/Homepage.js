@@ -10,9 +10,13 @@ const Homepage = props => {
   }
 
   const decks = Object.keys(props.homepage).map(deckId => {
+    const deck = props.homepage[deckId];
+    if (deck.visibility === 'private' && deck.owner !== props.isLoggedIn) {
+      return null;
+    }
     return (
       <div key={deckId}>
-        <Link to={`/viewer/${deckId}`}>{props.homepage[deckId].name}</Link>
+        <Link to={`/viewer/${deckId}`}>{deck.name}</Link>
       </div>
     );
   });

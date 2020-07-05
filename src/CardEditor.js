@@ -17,6 +17,7 @@ class CardEditor extends React.Component {
       front: '',
       back: '',
       name: '',
+      private: false,
     };
   }
 
@@ -40,12 +41,24 @@ class CardEditor extends React.Component {
   handleChange = event =>
     this.setState({ [event.target.name]: event.target.value });
 
+  handleCheckboxChange = event =>
+    this.setState({ [event.target.name]: event.target.checked });
+
   createDeck = () => {
     const deckId = this.props.firebase.push('/flashcards').key;
     const updates = {};
-    const newDeck = { cards: this.state.cards, name: this.state.name };
+    const newDeck = {
+      cards: this.state.cards,
+      name: this.state.name,
+      owner: this.props.isLoggedIn,
+      visibility: this.state.private ? 'private' : 'public',
+    };
     updates[`/flashcards/${deckId}`] = newDeck;
-    updates[`/homepage/${deckId}`] = { name: this.state.name };
+    updates[`/homepage/${deckId}`] = {
+      name: this.state.name,
+      owner: this.props.isLoggedIn,
+      visibility: this.state.private ? 'private' : 'public',
+    };
     const onComplete = () => this.props.history.push(`/viewer/${deckId}`);
     this.props.firebase.update('/', updates, onComplete);
   };
@@ -105,6 +118,16 @@ class CardEditor extends React.Component {
         />
         <button onClick={this.addCard}>Add card</button>
         <hr />
+        <div>
+          Make this deck private{' '}
+          <input
+            name="private"
+            onChange={this.handleCheckboxChange}
+            type="checkbox"
+            value={this.state.private}
+          />
+        </div>
+        <br />
         <div>
           <button
             disabled={!this.state.name.trim() || this.state.cards.length === 0}
