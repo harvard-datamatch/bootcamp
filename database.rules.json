@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "flashcards": {
+      "$deckId": {
+        ".read": "data.child('visibility').val() == 'public' || data.child('owner').val() == auth.uid",
+        ".write": true
+      }
+    },
+    "homepage": {
+      ".read": true,
+      ".write": true
+    },
+    "users": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}
