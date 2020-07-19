@@ -3,16 +3,20 @@
     "flashcards": {
       "$deckId": {
         ".read": "data.child('visibility').val() == 'public' || data.child('owner').val() == auth.uid",
-        ".write": true
+        ".write": "data.child('owner').val() == auth.uid || (!data.exists() && newData.child('owner').val() == auth.uid)"
       }
     },
     "homepage": {
-      ".read": false,
-      ".write": true
+      "$deckId": {
+        ".read": false,
+        ".write": "data.child('owner').val() == auth.uid || (!data.exists() && newData.child('owner').val() == auth.uid)"
+      }
     },
     "users": {
-      ".read": true,
-      ".write": true
+      "$uid": {
+        ".read": true,
+        ".write": "auth.uid == $uid"
+      }
     }
   }
 }
